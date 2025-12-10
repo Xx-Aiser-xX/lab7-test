@@ -1,8 +1,12 @@
 pipeline {
-    agent {
-        docker { 
-            image 'golang:1.22' 
-        }
+    agent any
+    tools {
+        go 'go-1.22' 
+    }
+    environment {
+        GOCACHE = "${WORKSPACE}/.cache"
+        GOPATH = "${WORKSPACE}/go"
+        PATH = "${GOPATH}/bin:${PATH}"
     }
     stages {
         stage('Unit Tests') {
